@@ -1,0 +1,22 @@
+cd SDSGG_MAIN
+python setup.py build develop
+
+##inference
+#base
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --master_port 10027 --nproc_per_node=1 tools/relation_test_net.py --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_base.yaml" MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True MODEL.ROI_RELATION_HEAD.PREDICTOR ClipPredictor TEST.IMS_PER_BATCH 1 DTYPE "float16" GLOVE_DIR ../glove  MODEL.PRETRAINED_DETECTOR_CKPT ../checkpoint/vg OUTPUT_DIR ../checkpoint/vg
+
+#novel
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --master_port 10027 --nproc_per_node=1 tools/relation_test_net.py --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_novel.yaml" MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True MODEL.ROI_RELATION_HEAD.PREDICTOR ClipPredictor TEST.IMS_PER_BATCH 1 DTYPE "float16" GLOVE_DIR ../glove  MODEL.PRETRAINED_DETECTOR_CKPT ../checkpoint/vg OUTPUT_DIR ../checkpoint/vg
+
+#semantic
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --master_port 10027 --nproc_per_node=1 tools/relation_test_net.py --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_semantic.yaml" MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True MODEL.ROI_RELATION_HEAD.PREDICTOR ClipPredictor TEST.IMS_PER_BATCH 1 DTYPE "float16" GLOVE_DIR ../glove  MODEL.PRETRAINED_DETECTOR_CKPT ../checkpoint/vg OUTPUT_DIR ../checkpoint/vg
+
+#gqa
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --master_port 10027 --nproc_per_node=1 tools/relation_test_net.py --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_clip_GQA200.yaml" MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True MODEL.ROI_RELATION_HEAD.PREDICTOR GQAClipPredictor TEST.IMS_PER_BATCH 1 DTYPE "float16" GLOVE_DIR ../glove  MODEL.PRETRAINED_DETECTOR_CKPT ../checkpoint/gqa OUTPUT_DIR ../checkpoint/gqa
+
+#train
+#vg
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --master_port 10025 --nproc_per_node=1 tools/relation_train_net.py --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_total.yaml" MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True MODEL.ROI_RELATION_HEAD.PREDICTOR ClipPredictor SOLVER.IMS_PER_BATCH 4 TEST.IMS_PER_BATCH 2 DTYPE "float16" SOLVER.MAX_ITER 16000 SOLVER.VAL_PERIOD 4000 SOLVER.CHECKPOINT_PERIOD 4000 GLOVE_DIR ../glove MODEL.PRETRAINED_DETECTOR_CKPT detect_path OUTPUT_DIR out_put_dir
+#gqa
+CUDA_VISIBLE_DEVICES=0 python -m torch.distributed.launch --master_port 10025 --nproc_per_node=1 tools/relation_train_net.py --config-file "configs/e2e_relation_X_101_32_8_FPN_1x_clip_GQA200.yaml" MODEL.ROI_RELATION_HEAD.USE_GT_BOX True MODEL.ROI_RELATION_HEAD.USE_GT_OBJECT_LABEL True MODEL.ROI_RELATION_HEAD.PREDICTOR GQAClipPredictor SOLVER.IMS_PER_BATCH 4 TEST.IMS_PER_BATCH 2 DTYPE "float16" SOLVER.MAX_ITER 16000 SOLVER.VAL_PERIOD 4000 SOLVER.CHECKPOINT_PERIOD 4000 GLOVE_DIR ../glove MODEL.PRETRAINED_DETECTOR_CKPT detect_path OUTPUT_DIR out_put_dir
+
