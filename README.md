@@ -1,4 +1,4 @@
-# LogicHOI
+# SDSGG
 This is the code for our NeurIPS 2024 paper "[Scene Graph Generation with Role-Playing Large Language Models](https://arxiv.org/abs/2410.15364)".
 
 ## Abstract
