@@ -28,8 +28,8 @@ def do_gqa_evaluation(
     else:
         mode = 'sgdet'
 
-    # num_rel_category = cfg.MODEL.ROI_RELATION_HEAD.GQA_200_NUM_CLASSES
-    num_rel_category = cfg.MODEL.ROI_RELATION_HEAD.NUM_CLASSES
+    num_rel_category = predictions[0].extra_fields['pred_rel_scores'].shape[-1]
+    #num_rel_category = cfg.MODEL.ROI_RELATION_HEAD.NUM_CLASSES
     multiple_preds = cfg.TEST.RELATION.MULTIPLE_PREDS
     iou_thres = cfg.TEST.RELATION.IOU_THRESHOLD
     assert mode in {'predcls', 'sgdet', 'sgcls', 'phrdet', 'preddet'}
