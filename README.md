@@ -32,22 +32,20 @@ We conducted evaluations on the VG and GQA datasets.
 We uploaded all the checkpoints to [BaiduDrive](https://pan.baidu.com/s/1YJXutOUNx74ac1A0Lu5NSQ?pwd=ywhx). Feel free to download.
 
 
-**See folder [detection](detection/) for Detection tasks.**
-
 ## Acknowledgment
 Our implementation is mainly based on the following codebases. We gratefully thank the authors for their wonderful works.
 
-[Scene Graph Benchmark in Pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch),[RECODE](https://github.com/HKUST-LongGroup/RECODE).
+[Scene Graph Benchmark in Pytorch](https://github.com/KaihuaTang/Scene-Graph-Benchmark.pytorch), [RECODE](https://github.com/HKUST-LongGroup/RECODE).
 
 ## Citation
 
 If you find this work useful in your research, please star our repository and consider citing:
 
 ```
-@article{chen2024scene,
+@inproceedings{chen2024scene,
   title={Scene Graph Generation with Role-Playing Large Language Models},
   author={Chen, Guikun and Li, Jin and Wang, Wenguan},
-  journal={arXiv preprint arXiv:2410.15364},
+  booktitle={NeurIPS},
   year={2024}
 }
 ```
